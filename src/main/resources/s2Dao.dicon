@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+"http://www.seasar.org/dtd/components24.dtd">
+<components>
+        <include path="dao.dicon"/>
+        <include path="j2ee.dicon"/>
+
+        <!-- ログ出力用のコンポーネント -->
+        <component name="traceInterceptor" class="org.seasar.framework.aop.interceptors.TraceInterceptor"/>
+
+        <!-- コンポーネントの自動登録-->
+    <component
+        class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister">
+        <property name="autoNaming">
+          <component class="org.seasar.framework.container.autoregister.DefaultAutoNaming"/>
+        </property>
+        <initMethod name="addClassPattern">
+          <arg>"snowhiro"</arg>
+          <arg>".*Dao"</arg>
+        </initMethod>
+    </component>
+
+    <!-- アスペクトの自動登録 -->
+    <component class="org.seasar.framework.container.autoregister.AspectAutoRegister">
+        <property name="interceptor">j2ee.requiredTx</property>
+                        <initMethod name="addClassPattern">
+                        <arg>"snowhiro"</arg>
+                        <arg>".*Dao"</arg>
+                </initMethod>
+        </component>
+    <component class="org.seasar.framework.container.autoregister.AspectAutoRegister">
+        <property name="interceptor">dao.interceptor</property>
+                        <initMethod name="addClassPattern">
+                        <arg>"snowhiro"</arg>
+                        <arg>".*Dao"</arg>
+                </initMethod>
+        </component>
+
+</components>

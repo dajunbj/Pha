@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:te="http://www.seasar.org/teeda/extension" xml:lang="ja"
+	lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../jquery-2.1.1.min.js"></script>
+<link rel="stylesheet" href="../css/base/base.css" />
+<link rel="stylesheet" href="../css/userRegister/UserRegister.css" />
+<title></title>
+
+</head>
+<body>
+	<form id="form">
+		<div class="main_div">
+			<hr />
+			<div>
+				<table style="width: 100%; background-color: activecaption;">
+					<tr>
+						<td><span id="registTitleLabel" /></td>
+						<td align="right"><input type="button" value="戻る"
+							id="doReturn" /></td>
+					</tr>
+				</table>
+			</div>
+			<div style="width: 100%; overflow: hidden;">
+				<span id="allMessages" /><input type="hidden" id="login_user_id" /><input type="hidden" id="up_user_id" />
+			</div>
+			<hr />
+			<!-- 検索条件 -->
+			<div class="sel_condition_div">
+				<table>
+
+					<tr>
+						<td class="td_register_span"><span id="login_idLabel" /></td>
+						<td class="td_register_input"><input type="text" id="login_id"
+							class="input_login_id" /></td>
+					</tr>					
+				    <tr>
+						<td class="td_register_span"><span id="passwordLabel" /></td>
+						<td class="td_register_input"><input type="text" id="password"
+							class="input_password" /></td>
+					</tr>
+					<tr>
+						<td class="td_register_span"><span id="user_nmLabel" /></td>
+						<td class="td_register_input"><input type="text" id="user_nm"
+							class="input_user_nm" /></td>
+					</tr>
+					<tr>
+						<td class="td_register_span"><span id="smart_phoneLabel" /></td>
+						<td class="td_register_input"><input type="text"
+							id="smart_phone" class="input_smart_phone" /></td>
+					</tr>
+					<tr>
+						<td class="td_register_span"><span id="user_typeLabel" /></td>
+						<td class="td_register_input"><span id="isHide_type">
+								<input type="radio" name="user_type" value="1" checked="checked" />代理
+						</span> <span id="isNotHide_type"> <input type="radio"
+								name="user_type" value="0" checked="checked" />普通顧客
+						</span></td>
+					</tr>
+					<tr>
+						<td class="td_register_span"><span id="mailLabel" /></td>
+						<td class="td_register_input"><input type="text" id="mail"
+							class="input_mail" /></td>
+					</tr>
+					<tr>
+						<td class="td_register_span"><span id="addressLabel" /></td>
+						<td class="td_register_input"><input type="text" id="address"
+							class="input_address" /></td>
+					</tr>
+					<tr>
+						<td class="td_register_span"><span id="postal_codeLabel" /></td>
+						<td class="td_register_input"><input type="text"
+							id="postal_code" class="input_postal_code" /></td>
+					</tr>
+					<tr>
+						<td class="td_register_span"><span id="exchange_rateLabel" /></td>
+						<td class="td_register_input"><span id="isHide_rate"><input
+								type="text" id="exchange_rate" class="input_exchange_rate" /> </span>
+							<span id="isNotHide_rate"> <input type="text"
+								id="exchange_rate" class="input_exchange_rate"
+								disabled="disabled" />
+						</span></td>
+					</tr>
+					<tr>
+						<td class="td_register_span"><span id="rateLabel" /></td>
+						<td class="td_register_input"><input type="text" id="rate"
+							class="input_rate" /></td>
+					</tr>
+
+					<tr>
+						<td class="td_register_span"><span id="recommend_idLabel" /></td>
+						<td class="td_register_input"><input type="text"
+							id="recommend_id" class="input_recommend_id" disabled="disabled" /></td>
+					</tr>
+				</table>
+			</div>
+			<hr />
+			<!-- 機能ボタン -->
+			<div class="btn_div">
+				<table style="width: 100%;">
+					<tr>
+						<td><input type="button" value="登録" id="doRegist" /></td>
+					</tr>
+				</table>
+			</div>
+			<hr />
+		</div>
+	</form>
+</body>
+</html>

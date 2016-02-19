@@ -1,0 +1,23 @@
+#示正件及扽俶CSS
+input[type="button"],input[type="submit"] {
+	width: 120px;
+	height: 20px;
+	border: #7EBF4F 1px solid;
+	font-size: 12px;
+	cursor: pointer;
+	color: black;
+	line-height: 20px;
+	margin: 3px;
+	background-color: #95E574;
+	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0,
+		StartColorStr=#ffffff, EndColorStr=#95E574 );
+	background: -moz-linear-gradient(top, #ffffff, #95E574);
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border: #7EBF4F 1px solid;
+	border: #7EBF4F 1px solid;
+	border: #7EBF4F 1px solid;
+	border: #7EBF4F 1px solid;
+}

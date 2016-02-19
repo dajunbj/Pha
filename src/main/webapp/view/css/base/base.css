@@ -1,0 +1,98 @@
+body {
+	width: 50%;
+	text-align: center;
+}
+
+.main_div {
+	position: absolute;
+	width: 400px;
+	height: 200px;
+	left: 50%;
+	top: 10px;
+	padding-top: 10px;
+	margin-left: -150px;
+}
+
+#titleLabel {
+	font: 30px;
+	font-weight: bold;
+}
+
+.sel_condition_div {
+	border-style: none;
+	width: 100%;
+	text-align: left;
+}
+/* 検索条件 */
+.sel_btn {
+	text-align: right;
+}
+/* 検索条件 */
+.sel_obj {
+	text-align: left;
+}
+
+.btn_div {
+	text-align: left;
+}
+
+
+
+.detail_table {
+	padding: 0;
+	margin: 0;
+	position: relative;
+	width: 100%;
+}
+
+/* 明細ヘッダ */
+.detail_th {
+	padding: 0;
+	margin: 0;
+	border-style: solid;
+	border-width: 1px;
+	border-color: gray;
+	background-color: lime;
+}
+
+td {
+	padding: 0;
+	margin: 0;
+}
+
+.detail_input {
+	width: 100%;
+	border-style: none;
+}
+
+/* 明細項目のサイズの設定 */
+.detail_btn {
+	width: 35px;
+	font-size: 10px;
+}
+
+/* エラーのCSS */
+.onTeedaError {
+	background-color: #FFCCCC;
+	color: red;
+}
+
+#allMessages { /* 	color: red;
+	text-align: left; */
+	color: #7f7f7f;
+	display: inline-block;
+	font: 12px/1 sans-serif;
+	text-align: left;
+}
+
+.even {
+	background-color: white;
+}
+
+.odd {
+	background-color: #66FFFF;
+}
+
+.row_select {
+	background-color: #FFEC8B;
+}

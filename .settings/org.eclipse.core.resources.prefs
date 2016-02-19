@@ -1,0 +1,11 @@
+eclipse.preferences.version=1
+encoding//src/main/java/src/web/error/messges.properties=UTF-8
+encoding//src/main/resources/appMessages.properties=ISO-8859-1
+encoding//src/main/resources/appMessages_ja.properties=Shift-jis
+encoding//src/main/resources/src/web/label_jp.properties=Shift_JIS
+encoding//src/main/resources/src/web/menu/label_jp.properties=Shift-jis
+encoding//src/main/resources/src/web/user/label.properties=ISO-8859-1
+encoding//src/main/resources/src/web/user/label_jp.properties=Shift-jis
+encoding//src/main/webapp/view/css/goods/goodsList.css=UTF-8
+encoding//src/main/webapp/view/css/order/orderList.css=UTF-8
+encoding/<project>=UTF-8

@@ -1,0 +1,8 @@
+DaoType=S2Dao
+DefaultResourcePath=/Pha/src/main/resources
+DefaultRootPackage=src
+DefaultSrcPath=/Pha/src/main/java
+ServletPath=/Pha
+WebContentsRoot=src/main/webapp/
+eclipse.preferences.version=1
+isUsePublicField=true

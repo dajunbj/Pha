@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:te="http://www.seasar.org/teeda/extension" xml:lang="ja"
+	lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../jquery-2.1.1.min.js"></script>
+<!-- 奇数、偶数によって、色を設定する -->
+<script src="../js/com/com_set_row_color.js"></script>
+<link rel="stylesheet" href="../css/base/base.css" />
+<link rel="stylesheet" href="../css/userRegister/UserRegister.css" />
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("input#doUpdate").click(function() {
+			$("#select_row").val($(this).parents("tr").index());
+		});
+		$("input#doDelete").click(function() {
+			$("#select_row").val($(this).parents("tr").index());
+		});
+	});
+</script>
+</head>
+<body>
+	<form id="form">
+		<div class="main_div">
+			<hr />
+			<div>
+				<table style="width: 100%; background-color: activecaption;">
+					<tr>
+						<td><span id="listTitleLabel" /></td>
+						<td align="right"><input type="button" value="戻る"
+							id="doReturn" /></td>
+					</tr>
+				</table>
+			</div>
+			<hr />
+			<div style="width: 100%; overflow: hidden;">
+				<span id="allMessages" /><input type="hidden" id="login_user_id" /><input type="hidden" id="up_user_id" /><input
+					type="hidden" id="select_row" />
+			</div>
+			<!-- 検索条件 -->
+			<div class="sel_condition_div">
+				<table>
+					<tr>
+						<td>
+							<div>
+								<span id="messages"></span>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><span id="sel_user_idLabel" /></td>
+						<td><input type="text" id="sel_user_id"
+							title="sel_user_idLabel" /></td>
+					</tr>
+					<tr>
+						<td><span id="sel_user_nmLabel" /></td>
+						<td><input type="text" id="sel_user_nm" /></td>
+					</tr>
+					<tr>
+						<td><input type="button" value="検索" id="doSelect" /></td>
+					</tr>
+				</table>
+			</div>
+			<hr />
+			<!-- 機能ボタン -->
+			<div class="btn_div">
+				<table style="width: 100%;">
+					<tr>
+						<td><input type="button" value="新規" id="doRegist" /> <!-- 明細ボタンのパラメータ -->
+							<input type="hidden" id="selectedId" /></td>
+					</tr>
+				</table>
+			</div>
+			<hr />
+			<!-- 機能ボタン -->
+			<div class="detail_div">
+				<table id="mytable" class="detail_table" border="0" cellspacing="0"
+					cellpadding="0">
+					<tr>
+						<th class="detail_th"><span id="editBtnLabel"
+							class="detail_input" /></th>
+						<th class="detail_th"><span id="user_idLabel"
+							class="detail_input" /></th>
+						<th class="detail_th"><span id="user_nmLabel"
+							class="detail_input" /></th>
+						<th class="detail_th"><span id="smart_phoneLabel"
+							class="detail_input" /></th>
+						<th class="detail_th"><span id="user_typeLabel"
+							class="detail_input" /></th>
+						<th class="detail_th"><span id="mailLabel"
+							class="detail_input" /></th>
+						<th class="detail_th"><span id="addressLabel"
+							class="detail_input" /></th>
+						<th class="detail_th"><span id="postal_codeLabel"
+							class="detail_input" /></th>
+						<th class="detail_th"><span id="exchange_rateLabel"
+							class="detail_input" /></th>
+						<th class="detail_th"><span id="rateLabel"
+							class="detail_input" /></th>
+						<th class="detail_th"><span id="levelLabel"
+							class="detail_input" /></th>
+						<th class="detail_th"><span id="recommend_idLabel"
+							class="detail_input" /></th>
+					</tr>
+					<tbody id="phaUserItems">
+						<tr id="rowIndex">
+							<td class="detail_td_1"><input id="rowIndex" type="hidden" />
+								<input type="submit" id="doUpdate" value="編集" class="detail_btn" />
+								<input type="submit" id="doDelete" value="削除" class="detail_btn" /></td>
+							<td class="detail_td_2"><input id="user_id"
+								class="detail_input" type="hidden"/><span id="login_id"
+								class="detail_input" /></td>
+							<td class="detail_td_3"><span id="user_nm"
+								class="detail_input" /></td>
+							<td class="detail_td_4"><span id="smart_phone"
+								class="detail_input" /></td>
+							<td class="detail_td_5"><span id="user_type"
+								class="detail_input" /></td>
+							<td class="detail_td_6"><span id="mail" class="detail_input" /></td>
+							<td class="detail_td_7"><span id="address"
+								class="detail_input" /></td>
+							<td class="detail_td_8"><span id="postal_code"
+								class="detail_input" /></td>
+							<td class="detail_td_9"><span id="exchange_rate"
+								class="detail_input" /></td>
+							<td class="detail_td_10"><span id="rate"
+								class="detail_input" /></td>
+							<td class="detail_td_11"><span id="level"
+								class="detail_input" /></td>
+							<td class="detail_td_12"><span id="recommend_id"
+								class="detail_input" /></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</form>
+</body>
+</html>

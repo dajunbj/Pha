@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:te="http://www.seasar.org/teeda/extension" xml:lang="ja"
+	lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet" href="../css/base/base.css" />
+<link rel="stylesheet" href="../css/menu/menu.css" />
+<title>メニュー画面</title>
+</head>
+<body>
+	<form id="Form">
+
+		<div class="main_div">
+			<table>
+				<tr>
+					<td><div style="width: 500px; text-align: center;">
+							<span id="titleLabel" />
+						</div></td>
+				</tr>
+				<tr>
+					<td><div>
+							<hr />
+						</div></td>
+				</tr>
+				<tr>
+					<td><span id="messages"></span></td>
+				</tr>
+
+				<tr>
+					<td id="menu_td"><input type="hidden" id="userid" /><input
+						type="hidden" id="level" /><input type="hidden"
+						id="login_user_id" />
+						<div id="isNotSystemUserDisplay">
+							<div id="isSuperUserDisplay">
+								<!-- 代理 -->
+								<table>
+									<tr>
+										<!-- 商品種別 -->
+										<td><input type="button" id="doGoodsType"
+											value="move_to_good_typeLabel" /></td>
+									</tr>
+									<tr>
+										<!-- 商品品名 -->
+										<td><input type="button" id="doGoodProducer"
+											value="move_to_good_nameLabel" /></td>
+									</tr>
+									<tr>
+										<!-- 商品一覧 -->
+										<td><input type="button" id="doGoods_Register"
+											value="move_to_good_listLabel" /></td>
+									</tr>
+									<tr>
+										<!-- 注文管理 -->
+										<td><input type="button" id="doOrder_Register"
+											value="move_to_orderLabel" /></td>
+									</tr>
+									<tr>
+										<!-- ユーザ管理 -->
+										<td><input type="button" id="doUser_Register"
+											value="move_to_userLabel" /></td>
+									</tr>
+									<tr>
+										<!-- ユーザ管理 -->
+										<td><input type="button" value="閉じる" id="doReturn" /></td>
+									</tr>
+
+
+								</table>
+							</div>
+
+							<div id="isNotSuperUserDisplay">
+								<!-- 顧客 -->
+								<table>
+									<tr>
+										<!-- 利用者情報照会、修正 -->
+										<td><input type="button" id="doOrder_Register"
+											value="move_to_orderLabel" /></td>
+									</tr>
+									<tr>
+										<!-- 注文登録：商品選択⇒注文登録 -->
+										<td><input type="button" id="doUser_Register"
+											value="move_to_userLabel" /></td>
+									</tr>
+									<tr>
+										<!-- ユーザ管理 -->
+										<td><input type="button" value="閉じる" id="doReturn" /></td>
+									</tr>
+								</table>
+
+							</div>
+						</div> <!-- <div id="isNotSystemUserDisplay">
+							super user
+							<table>
+								<tr>
+									全体利用者の情報編集、照会
+									<td><input type="button" id="doOrder_Register"
+										 value="move_to_userLabel" /></td>
+
+								</tr>
+								<tr>
+									利用者
+									<td><input type="button" id="doOrder_Register"
+										 value="move_to_orderLabel" /></td>
+								</tr>
+										<tr>
+										
+						<td><input type="button" value="閉じる" id="doReturn"
+							 /></td>
+				</tr>
+			</table>
+		</div>
+		--></td>
+				</tr>
+				<tr>
+					<td id="menu_td" colspan="2"><te:include
+							te:src="/layout/footer.html" /></td>
+				</tr>
+			</table>
+		</div>
+	</form>
+</body>
+</html>
