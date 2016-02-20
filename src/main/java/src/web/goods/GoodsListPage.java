@@ -14,6 +14,7 @@ import org.seasar.teeda.extension.annotation.validator.Required;
 import src.dao.GoodProducerDao;
 import src.dao.GoodTypeDao;
 import src.dao.GoodsDao;
+import src.entity.GoodProducer;
 import src.entity.Goods;
 import src.web.PhaBase;
 import src.web.common.PhaUtil;
@@ -58,11 +59,6 @@ public class GoodsListPage extends PhaBase {
 	@SubapplicationScope
 	public String selectedId;
 
-	// 半角文字
-	@RegularExpression(target = "doSelect", messageId = "user.banjiaoWenzi", pattern = "[ -~]+")
-	public String sel_goodsType;
-
-	@Required(target = "doRegist", messageId = "user.required")
 	public String sel_good_producer_id;
 	public List<Map<String, String>> sel_good_producer_idItems;
 
@@ -71,6 +67,14 @@ public class GoodsListPage extends PhaBase {
 	public List<Map<String, String>> sel_typeIdItems;
 
 	public Class<GoodsListPage> initialize() {
+
+		// 商品種別リストボックス
+		sel_typeIdItems = typeDao.selectValueLabel();
+		// 商品品名の連動
+		GoodProducer inputParam = new GoodProducer();
+		inputParam.type_id = null;
+		sel_good_producer_idItems = goodProducerDao.selectValueLabel(inputParam);
+
 		detailItems = new ArrayList<Goods>();
 
 		return selGoodsList();
@@ -88,10 +92,10 @@ public class GoodsListPage extends PhaBase {
 
 		Goods param = new Goods();
 		param.goods_nm = sel_good_producer_id;
-		param.type_id = sel_goodsType;
+		param.type_id = sel_typeId;
 		detailItems = dao.getGoodsList(param);
 
-		// 商品種別リストボックス.　
+		// 商品種別リストボックス.
 		return null;
 	}
 

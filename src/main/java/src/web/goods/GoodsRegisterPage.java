@@ -127,6 +127,8 @@ public class GoodsRegisterPage extends PhaBase {
 		}
 	}
 
+
+
 	public Class doReturn() {
 		return GoodsListPage.class;
 	}
