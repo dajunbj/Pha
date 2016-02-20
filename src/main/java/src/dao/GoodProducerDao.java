@@ -24,7 +24,7 @@ public interface GoodProducerDao {
 	public List<GoodProducer> getGoodProducerList(GoodProducer param);
 
 	@SqlFile("sqlfile/GoodProducerDao_selectValueLabel.sql")
-	public List<Map<String, String>> selectValueLabel();
+	public List<Map<String, String>> selectValueLabel(GoodProducer param);
 
 	@SqlFile("sqlfile/GoodProducerDao_modifydGoodProducer.sql")
 	public int modifydGoodProducer(GoodProducer param);
