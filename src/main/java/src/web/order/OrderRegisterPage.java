@@ -7,22 +7,21 @@ import org.seasar.teeda.extension.annotation.takeover.TakeOver;
 import org.seasar.teeda.extension.annotation.takeover.TakeOverType;
 import org.seasar.teeda.extension.annotation.validator.Required;
 
-import src.dao.GoodsManageDao;
-import src.entity.GoodsManage;
+import com.sun.xml.internal.fastinfoset.stax.events.Util;
+
+import src.dao.GoodsDao;
+import src.entity.Goods;
 import src.web.PhaBase;
 import src.web.common.ErrorConst;
 import src.web.common.PhaUtil;
 import src.web.goods.GoodsListPage;
 
-import com.sun.xml.internal.fastinfoset.stax.events.Util;
-
 public class OrderRegisterPage extends PhaBase {
 
-	private GoodsManageDao dao;
+	private GoodsDao dao;
 
 	public OrderRegisterPage() {
-		dao = (GoodsManageDao) getContainer()
-				.getComponent(GoodsManageDao.class);
+		dao = (GoodsDao) getContainer().getComponent(GoodsDao.class);
 	}
 
 	/* レベル表示の設定 */
@@ -54,33 +53,33 @@ public class OrderRegisterPage extends PhaBase {
 		// システム日付の取得
 		Timestamp sysDate = PhaUtil.getTimeStamp();
 
-		GoodsManage param = new GoodsManage();
+		Goods param = new Goods();
 
 		// パラメータ作成
 		if (!Util.isEmptyString(goodsid)) {
 			// 更新
-			GoodsManage updInfo = new GoodsManage();
+			Goods updInfo = new Goods();
 
-			updInfo.goodsid = goodsid;
-			updInfo.goodstype = goodstype;
-			updInfo.goodsname = goodsname;
-			updInfo.tanka = tanka;
-			updInfo.tani = tani;
-			updInfo.bikou = "";
+			updInfo.goods_id= goodsid;
+			updInfo.type_id = goodstype;
+			updInfo.goods_nm = goodsname;
+			/*
+			 * updInfo.tanka = tanka; updInfo.tani = tani; updInfo.bikou = "";
+			 */
 			updInfo.registe_date = sysDate;
 			updInfo.registe_id = login_user_id;
 			updInfo.upd_date = sysDate;
 			updInfo.upd_id = "";
 			updInfo.del_flg = "0";
 
-			dao.modifydGoodsManages(updInfo);
+			dao.modifyGoods(updInfo);
 
 			return OrderListPage.class;
 		} else {
 
-			param = new GoodsManage();
+			param = new Goods();
 
-			param.goodsname = goodsname;
+			param.goods_nm = goodsname;
 			// 新規
 			int recCount = dao.getCounts(param);
 
@@ -91,14 +90,15 @@ public class OrderRegisterPage extends PhaBase {
 				return null;
 			}
 			int all_count = dao.getCounts(null);
-			GoodsManage insertInfo = new GoodsManage();
+			Goods insertInfo = new Goods();
 			// 新規
-			insertInfo.goodsid = String.valueOf(all_count + 1);
-			insertInfo.goodstype = goodstype;
-			insertInfo.goodsname = goodsname;
-			insertInfo.tanka = tanka;
-			insertInfo.tani = tani;
-			insertInfo.bikou = "";
+			insertInfo.goods_id = String.valueOf(all_count + 1);
+			insertInfo.type_id = goodstype;
+			insertInfo.goods_nm = goodsname;
+			/*
+			 * insertInfo.tanka = tanka; insertInfo.tani = tani;
+			 * insertInfo.bikou = "";
+			 */
 			insertInfo.registe_date = sysDate;
 			insertInfo.registe_id = login_user_id;
 			insertInfo.upd_date = sysDate;
@@ -118,22 +118,22 @@ public class OrderRegisterPage extends PhaBase {
 	/**
 	 * 初期化処理1
 	 * 
-	 * */
+	 */
 	@TakeOver(type = TakeOverType.INCLUDE, properties = "login_user_id,goodsid")
 	public Class initialize() {
 		if (Util.isEmptyString(goodsid)) {
 			// 画面項目をクリアする
 		} else {
 			// 画面項目を検索して、設定する
-			GoodsManage param = new GoodsManage();
-			param.goodsid = goodsid;
-			GoodsManage retInfo = dao.getGoodsManage(param);
+			Goods param = new Goods();
+			param.goods_id = goodsid;
+			Goods retInfo = dao.getGoods(param);
 
-			goodsid = retInfo.goodsid;
-			goodstype = retInfo.goodstype;
-			goodsname = retInfo.goodsname;
-			tanka = retInfo.tanka;
-			tani = retInfo.tani;
+			goodsid = retInfo.goods_id;
+			goodstype = retInfo.type_id;
+			goodsname = retInfo.goods_nm;
+			/*tanka = retInfo.tanka;
+			tani = retInfo.tani;*/
 		}
 
 		return null;
