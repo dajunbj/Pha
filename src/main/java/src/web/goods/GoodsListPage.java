@@ -86,6 +86,18 @@ public class GoodsListPage extends PhaBase {
 	public Class<GoodsListPage> doSelect() {
 		return selGoodsList();
 	}
+/*
+	public ActionResult ReadPersons(List<PersonModel> model) 
+    { 
+        string result = ""; 
+        if (model == null) return Content(result); 
+        foreach (var s in model) 
+        { 
+            result += s.ToString(); 
+            result += "-------------"; 
+        }
+        return Content(result); 
+    }*/
 
 	private Class<GoodsListPage> selGoodsList() {
 		detailItems = new ArrayList<Goods>();

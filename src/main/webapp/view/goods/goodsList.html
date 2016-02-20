@@ -22,34 +22,31 @@
 		//----------------連動--------------
 		//商品種別が変更したとき
 		$("#sel_typeId").change(function(){
-   
-        
-        
-        
-        $("a").on("click", function(){
 
-        var that = this;
+	    $.ajax( {  
+	      url:'GoodsList.html',// 跳转到 action  
+	      data:{  
+	               selectedTypeId : 1
+	      },  
+	     type:'get',  
+	     cache:false,  
+	     dataType:'json',  
+	     success:function(data) {  
+	         if(data.msg =="true" ){  
+	             alert("修改成功！");  
+	             window.location.reload();  
+	         }else{  
+	             view(data.msg);  
+	         }  
+	      },  
+	      error : function(XMLHttpRequest, textStatus, errorThrown) {  
+	       alert(XMLHttpRequest.status);
+			 alert(XMLHttpRequest.readyState);
+			 alert(textStatus);
+	                 }  
+	 });
 
-        $.ajax({
-
-            url:url,
-
-            dataType: dataType,
-
-            type: "POST"
-
-            data: {},
-
-            success: function() {
-
-                $(that).parentsUntil("tr").parent().remove();
-
-            };
-
-        });
-
-    });
-
+	 });
 	});
 </script>
 
