@@ -18,6 +18,38 @@
 		$("input#doDelete").click(function() {
 			$("#select_row").val($(this).parents("tr").index());
 		});
+		
+		//----------------連動--------------
+		//商品種別が変更したとき
+		$("#sel_typeId").change(function(){
+   
+        
+        
+        
+        $("a").on("click", function(){
+
+        var that = this;
+
+        $.ajax({
+
+            url:url,
+
+            dataType: dataType,
+
+            type: "POST"
+
+            data: {},
+
+            success: function() {
+
+                $(that).parentsUntil("tr").parent().remove();
+
+            };
+
+        });
+
+    });
+
 	});
 </script>
 
