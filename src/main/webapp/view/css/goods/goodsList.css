@@ -47,6 +47,9 @@ input {
 	width: 100px;
 }
 
+select {
+	width: 100px;
+}
 .detail_td_1 {
 	width: 70px;
 	border-style: solid;
