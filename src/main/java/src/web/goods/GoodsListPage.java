@@ -9,7 +9,9 @@ import org.seasar.teeda.extension.annotation.scope.SubapplicationScope;
 import org.seasar.teeda.extension.annotation.takeover.TakeOver;
 import org.seasar.teeda.extension.annotation.takeover.TakeOverType;
 import org.seasar.teeda.extension.annotation.validator.RegularExpression;
+import org.seasar.teeda.extension.annotation.validator.Required;
 
+import src.dao.GoodProducerDao;
 import src.dao.GoodTypeDao;
 import src.dao.GoodsDao;
 import src.entity.Goods;
@@ -23,10 +25,14 @@ public class GoodsListPage extends PhaBase {
 
 	private GoodTypeDao typeDao;
 
+	private GoodProducerDao goodProducerDao;
+
 	public GoodsListPage() {
 		dao = (GoodsDao) getContainer().getComponent(GoodsDao.class);
 		// 商品種別リストの初期化
 		typeDao = (GoodTypeDao) getContainer().getComponent(GoodTypeDao.class);
+		// 商品品名リストの初期化
+		goodProducerDao = (GoodProducerDao) getContainer().getComponent(GoodProducerDao.class);
 	}
 
 	@SubapplicationScope
@@ -56,7 +62,9 @@ public class GoodsListPage extends PhaBase {
 	@RegularExpression(target = "doSelect", messageId = "user.banjiaoWenzi", pattern = "[ -~]+")
 	public String sel_goodsType;
 
-	public String sel_goodsName;
+	@Required(target = "doRegist", messageId = "user.required")
+	public String sel_good_producer_id;
+	public List<Map<String, String>> sel_good_producer_idItems;
 
 	// 商品種別選択のリストボックス
 	public String sel_typeId;
@@ -79,12 +87,11 @@ public class GoodsListPage extends PhaBase {
 		detailItems = new ArrayList<Goods>();
 
 		Goods param = new Goods();
-		param.goods_nm = sel_goodsName;
+		param.goods_nm = sel_good_producer_id;
 		param.type_id = sel_goodsType;
 		detailItems = dao.getGoodsList(param);
 
-		// 商品種別リストボックス
-		sel_typeIdItems = typeDao.selectValueLabel();
+		// 商品種別リストボックス.　
 		return null;
 	}
 

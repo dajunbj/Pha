@@ -1,26 +1,38 @@
 package src.web.goods;
 
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
 
 import org.seasar.teeda.extension.annotation.scope.SubapplicationScope;
 import org.seasar.teeda.extension.annotation.takeover.TakeOver;
 import org.seasar.teeda.extension.annotation.takeover.TakeOverType;
 import org.seasar.teeda.extension.annotation.validator.Required;
 
+import com.sun.xml.internal.fastinfoset.stax.events.Util;
+
+import src.dao.GoodProducerDao;
+import src.dao.GoodTypeDao;
 import src.dao.GoodsDao;
+import src.entity.GoodProducer;
 import src.entity.Goods;
 import src.web.PhaBase;
 import src.web.common.ErrorConst;
 import src.web.common.PhaUtil;
 
-import com.sun.xml.internal.fastinfoset.stax.events.Util;
-
 public class GoodsRegisterPage extends PhaBase {
 
 	private GoodsDao dao;
+	private GoodTypeDao typeDao;
+	private GoodProducerDao goodProducerDao;
 
 	public GoodsRegisterPage() {
 		dao = (GoodsDao) getContainer().getComponent(GoodsDao.class);
+		// 商品種別リストの初期化
+		typeDao = (GoodTypeDao) getContainer().getComponent(GoodTypeDao.class);
+		// 商品品名リストの初期化
+		goodProducerDao = (GoodProducerDao) getContainer().getComponent(GoodProducerDao.class);
+
 	}
 
 	/* レベル表示の設定 */
@@ -33,13 +45,6 @@ public class GoodsRegisterPage extends PhaBase {
 	@SubapplicationScope
 	public String goods_id;
 
-	@Required(target = "doRegist", messageId = "user.required")
-	public String type_id;
-
-	@Required(target = "doRegist", messageId = "user.required")
-	public String good_producer_id;
-	
-	@Required(target = "doRegist", messageId = "user.required")
 	public String goods_nm;
 
 	public String unit;
@@ -49,6 +54,12 @@ public class GoodsRegisterPage extends PhaBase {
 	public String user_id;
 
 	public String regist;
+
+	public String sel_typeId;
+	public List<Map<String, String>> sel_typeIdItems;
+
+	public String sel_good_producer_id;
+	public List<Map<String, String>> sel_good_producer_idItems;
 
 	public Class doRegist() {
 		System.out.println(login_user_id);
@@ -63,8 +74,8 @@ public class GoodsRegisterPage extends PhaBase {
 			Goods updInfo = new Goods();
 
 			updInfo.goods_id = goods_id;
-			updInfo.type_id = type_id;
-			updInfo.good_producer_id = good_producer_id;
+			updInfo.type_id = sel_typeId;
+			updInfo.good_producer_id = sel_good_producer_id;
 			updInfo.goods_nm = goods_nm;
 
 			updInfo.unit = "";
@@ -98,7 +109,7 @@ public class GoodsRegisterPage extends PhaBase {
 			Goods insertInfo = new Goods();
 			// 新規
 			insertInfo.goods_id = String.valueOf(all_count + 1);
-			insertInfo.type_id = type_id;
+			insertInfo.type_id = sel_typeId;
 			insertInfo.goods_nm = goods_nm;
 			insertInfo.unit = "";
 			insertInfo.capacity = "";
@@ -123,9 +134,13 @@ public class GoodsRegisterPage extends PhaBase {
 	/**
 	 * 初期化処理1
 	 * 
-	 * */
+	 */
 	@TakeOver(type = TakeOverType.INCLUDE, properties = "login_user_id,goodsid")
 	public Class initialize() {
+
+		// 商品種別リストボックス
+		sel_typeIdItems = typeDao.selectValueLabel();
+
 		if (Util.isEmptyString(goods_id)) {
 			// 画面項目をクリアする
 		} else {
@@ -133,9 +148,14 @@ public class GoodsRegisterPage extends PhaBase {
 			Goods param = new Goods();
 			param.goods_id = goods_id;
 			Goods retInfo = dao.getGoods(param);
+			GoodProducer inputParam = new GoodProducer();
+
+			// 商品品名の連動
+			inputParam.type_id = retInfo.type_id;
+			sel_good_producer_idItems = goodProducerDao.selectValueLabel(inputParam);
 
 			goods_id = retInfo.goods_id;
-			type_id = retInfo.type_id;
+			sel_good_producer_id = retInfo.type_id;
 			goods_nm = retInfo.goods_nm;
 			unit = retInfo.unit;
 			capacity = retInfo.capacity;
