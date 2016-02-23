@@ -1,6 +1,7 @@
 package src.web;
 
 import javax.faces.internal.FacesMessageUtil;
+import javax.servlet.http.HttpServlet;
 
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
@@ -8,7 +9,7 @@ import org.seasar.teeda.core.exception.AppFacesException;
 import org.seasar.teeda.extension.annotation.scope.RedirectScope;
 import org.seasar.teeda.extension.util.FacesMessageHelper;
 
-public class PhaBase implements FacesMessageHelper {
+public class PhaBase extends HttpServlet implements FacesMessageHelper {
 
 	@RedirectScope
 	public String login_user_id;

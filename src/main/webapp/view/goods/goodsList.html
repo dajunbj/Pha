@@ -7,6 +7,7 @@
 <script src="../jquery-2.1.1.min.js"></script>
 <!-- 奇数、偶数によって、色を設定する -->
 <script src="../js/com/com_set_row_color.js"></script>
+<script language="JavaScript" src="../js/ajax.js"></script>
 <link rel="stylesheet" href="../css/base/base.css" />
 <link rel="stylesheet" href="../css/goods/goodsList.css" />
 
@@ -21,33 +22,16 @@
 		
 		//----------------連動--------------
 		//商品種別が変更したとき
-		$("#sel_typeId").change(function(){
+    $("#sel_typeId").change(function(){
+ 
+     Kumu.Ajax.executeTeedaAjax(goods_goodsListPage_ajaxTest, {"sel_typeId":$("#sel_typeId").val()}, Kumu.Ajax.RESPONSE_TYPE_TEXT);
 
-	    $.ajax( {  
-	      url:'GoodsList.html',// 跳转到 action  
-	      data:{  
-	               selectedTypeId : 1
-	      },  
-	     type:'get',  
-	     cache:false,  
-	     dataType:'json',  
-	     success:function(data) {  
-	         if(data.msg =="true" ){  
-	             alert("修改成功！");  
-	             window.location.reload();  
-	         }else{  
-	             view(data.msg);  
-	         }  
-	      },  
-	      error : function(XMLHttpRequest, textStatus, errorThrown) {  
-	       alert(XMLHttpRequest.status);
-			 alert(XMLHttpRequest.readyState);
-			 alert(textStatus);
-	                 }  
-	 });
+    });
+    function goods_goodsListPage_ajaxTest(res){
+    alert(res);
+    }
 
-	 });
-	});
+});
 </script>
 
 </head>
@@ -90,7 +74,8 @@
 					</tr>
 					<tr>
 						<td class="sel_obj"><input type="button" value="検索"
-							id="doSelect" /><input type="button" value="新規" id="doRegist" />
+							id="doSelect" /><input type="button" value="新規" id="doRegist" /><input type="button" value="検索"
+							id="doSelect"/>
 							<!-- 明細ボタンのパラメータ --> <input type="hidden" id="selectedId" /></td>
 					</tr>
 				</table>

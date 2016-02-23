@@ -8,8 +8,6 @@ import java.util.Map;
 import org.seasar.teeda.extension.annotation.scope.SubapplicationScope;
 import org.seasar.teeda.extension.annotation.takeover.TakeOver;
 import org.seasar.teeda.extension.annotation.takeover.TakeOverType;
-import org.seasar.teeda.extension.annotation.validator.RegularExpression;
-import org.seasar.teeda.extension.annotation.validator.Required;
 
 import src.dao.GoodProducerDao;
 import src.dao.GoodTypeDao;
@@ -21,6 +19,11 @@ import src.web.common.PhaUtil;
 import src.web.menu.MenuPage;
 
 public class GoodsListPage extends PhaBase {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private GoodsDao dao;
 
@@ -34,6 +37,12 @@ public class GoodsListPage extends PhaBase {
 		typeDao = (GoodTypeDao) getContainer().getComponent(GoodTypeDao.class);
 		// 商品品名リストの初期化
 		goodProducerDao = (GoodProducerDao) getContainer().getComponent(GoodProducerDao.class);
+	}
+
+	public List<Map<String, String>> ajaxTest() {
+		GoodProducer inputParam = new GoodProducer();
+		inputParam.type_id = sel_typeId;
+		return goodProducerDao.selectValueLabel(inputParam);
 	}
 
 	@SubapplicationScope
@@ -70,10 +79,6 @@ public class GoodsListPage extends PhaBase {
 
 		// 商品種別リストボックス
 		sel_typeIdItems = typeDao.selectValueLabel();
-		// 商品品名の連動
-		GoodProducer inputParam = new GoodProducer();
-		inputParam.type_id = null;
-		sel_good_producer_idItems = goodProducerDao.selectValueLabel(inputParam);
 
 		detailItems = new ArrayList<Goods>();
 
@@ -86,18 +91,8 @@ public class GoodsListPage extends PhaBase {
 	public Class<GoodsListPage> doSelect() {
 		return selGoodsList();
 	}
-/*
-	public ActionResult ReadPersons(List<PersonModel> model) 
-    { 
-        string result = ""; 
-        if (model == null) return Content(result); 
-        foreach (var s in model) 
-        { 
-            result += s.ToString(); 
-            result += "-------------"; 
-        }
-        return Content(result); 
-    }*/
+
+	public String selectedTypeId;
 
 	private Class<GoodsListPage> selGoodsList() {
 		detailItems = new ArrayList<Goods>();
