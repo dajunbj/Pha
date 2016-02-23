@@ -1,0 +1,132 @@
+.td_register_span {
+	text-align: left;
+}
+
+.td_register_input {
+	text-align: left;
+	width: 500px;
+}
+
+.input_user_nm {
+	width: 100px;
+}
+
+.input_smart_phone {
+	width: 100px;
+}
+
+.input_user_type {
+	width: 300px;
+}
+
+.input_mail {
+	width: 300px;
+}
+
+.input_address {
+	width: 300px;
+}
+
+.input_postal_code {
+	width: 100px;
+}
+
+.input_exchange_rate {
+	width: 50px;
+}
+
+.input_rate {
+	width: 50px;
+}
+
+.input_level {
+	width: 50px;
+}
+
+.input_recommend_id {
+	width: 100px;
+}
+/* ñæç◊çÄñ⁄ÇÃÉTÉCÉYÇÃê›íË */
+.detail_td_1 {
+	width: 8%;
+	border-style: solid;
+	border-width: 1px;
+	border-color: gray;
+}
+
+.detail_td_2 {
+	width: 7%;
+	border-style: solid;
+	border-width: 1px;
+	border-color: gray;
+}
+
+.detail_td_3 {
+	width: 5%;
+	border-style: solid;
+	border-width: 1px;
+	border-color: gray;
+}
+
+.detail_td_4 {
+	width: 10%;
+	border-style: solid;
+	border-width: 1px;
+	border-color: gray;
+}
+
+.detail_td_5 {
+	width: 10%;
+	border-style: solid;
+	border-width: 1px;
+	border-color: gray;
+}
+
+.detail_td_6 {
+	width: 10%;
+	border-style: solid;
+	border-width: 1px;
+	border-color: gray;
+}
+
+.detail_td_7 {
+	width: 10%;
+	border-style: solid;
+	border-width: 1px;
+	border-color: gray;
+}
+
+.detail_td_8 {
+	width: 10%;
+	border-style: solid;
+	border-width: 1px;
+	border-color: gray;
+}
+
+.detail_td_9 {
+	width: 10%;
+	border-style: solid;
+	border-width: 1px;
+	border-color: gray;
+}
+
+.detail_td_10 {
+	width: 10%;
+	border-style: solid;
+	border-width: 1px;
+	border-color: gray;
+}
+
+.detail_td_11 {
+	width: 5%;
+	border-style: solid;
+	border-width: 1px;
+	border-color: gray;
+}
+
+.detail_td_12 {
+	width: 5%;
+	border-style: solid;
+	border-width: 1px;
+	border-color: gray;
+}

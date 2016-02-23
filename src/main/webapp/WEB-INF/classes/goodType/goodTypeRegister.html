@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:te="http://www.seasar.org/teeda/extension" xml:lang="ja"
+	lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../jquery-2.1.1.min.js"></script>
+<link rel="stylesheet" href="../css/base/base.css" />
+<link rel="stylesheet" href="../css/goodType/goodType.css" />
+<title></title>
+
+</head>
+<body>
+	<form id="form">
+		<div class="main_div">
+			<hr />
+			<div>
+				<table style="width: 100%; background-color: activecaption;">
+					<tr>
+						<td><span id="registTitleLabel" /></td>
+						<td align="right"><input type="button" value="戻る"
+							id="doReturn" /></td>
+					</tr>
+				</table>
+			</div>
+			<div style="width: 100%; overflow: hidden;">
+				<span id="allMessages" /><input type="hidden" id="login_user_id" /><input
+					type="hidden" id="up_user_id" />
+			</div>
+			<hr />
+			<!-- 検索条件 -->
+			<div class="sel_condition_div">
+				<table>
+
+					<tr>
+						<td class="td_register_span"><span id="typeIdLabel" /></td>
+						<td class="td_register_input"><input type="text" id="type_id"
+							class="input_typeId" disabled="disabled" /></td>
+					</tr>
+					<tr>
+						<td class="td_register_span"><span id="typeNmLabel" /></td>
+						<td class="td_register_input"><input type="text" id="tp_nm"
+							class="input_typeNm" /></td>
+					</tr>
+
+				</table>
+			</div>
+			<hr />
+			<!-- 機能ボタン -->
+			<div class="btn_div">
+				<table style="width: 100%;">
+					<tr>
+						<td><input type="button" value="登録" id="doRegist" /></td>
+					</tr>
+				</table>
+			</div>
+			<hr />
+		</div>
+	</form>
+</body>
+</html>

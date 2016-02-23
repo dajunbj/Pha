@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:te="http://www.seasar.org/teeda/extension" xml:lang="ja"
+	lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../jquery-2.1.1.min.js"></script>
+<!-- 奇数、偶数によって、色を設定する -->
+<script src="../js/com/com_set_row_color.js"></script>
+<link rel="stylesheet" href="../css/base/base.css" />
+<link rel="stylesheet" href="../css/goodProducer/goodProducer.css" />
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("input#doUpdate").click(function() {
+			$("#select_row").val($(this).parents("tr").index());
+		});
+		$("input#doDelete").click(function() {
+			$("#select_row").val($(this).parents("tr").index());
+		});
+	});
+</script>
+
+</head>
+<body>
+	<form id="form">
+		<div class="main_div">
+			<hr />
+			<div>
+				<table style="width: 100%; background-color: activecaption;">
+					<tr>
+						<td><span id="listTitleLabel" /></td>
+						<td align="right"><input type="button" value="戻る"
+							id="doReturn" /></td>
+					</tr>
+				</table>
+			</div>
+			<hr />
+			<div style="width: 100%; overflow: hidden;">
+				<span id="allMessages" /><input type="hidden" id="login_user_id" /><input
+					type="hidden" id="up_user_id" /><input type="hidden"
+					id="select_row" />
+			</div>
+			<!-- 検索条件 -->
+			<div class="sel_condition_div">
+				<table>
+					<tr>
+						<td>
+							<div>
+								<span id="messages"></span>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="sel_obj"><span id="sel_Producer_idLabel" /></td>
+						<td class="sel_obj"><select id="sel_typeId">
+						</select></td>
+
+
+					</tr>
+					<tr>
+						<td class="sel_obj"><span id="sel_producer_nmLabel" /></td>
+						<td class="sel_obj"><input type="text"
+							id="sel_good_producer_nm" /></td>
+					</tr>
+					<tr>
+						<td class="sel_obj"><input type="button" value="検索"
+							id="doSelect" /><input type="button" value="新規" id="doRegist" />
+							<!-- 明細ボタンのパラメータ --> <input type="hidden" id="selectedId" /></td>
+					</tr>
+				</table>
+			</div>
+			<hr />
+
+
+			<!-- 機能ボタン -->
+			<div class="detail_div">
+				<table id="mytable" class="detail_table" border="0" cellspacing="0"
+					cellpadding="0">
+					<tr>
+						<th class="detail_th"><span id="editBtnLabel"
+							class="detail_input" /></th>
+
+						<th class="detail_th"><span id="good_type_nmLabel"
+							class="detail_input" /></th>
+
+						<th class="detail_th"><span id="good_producer_nmLabel"
+							class="detail_input" /></th>
+						<th class="detail_th"><span id="founderLabel"
+							class="detail_input" /></th>
+
+					</tr>
+					<tbody id="detailItems">
+						<tr id="rowIndex">
+							<td class="detail_td_1"><input id="rowIndex" type="hidden" />
+								<input type="submit" id="doUpdate" value="編集" class="detail_btn" />
+								<input type="submit" id="doDelete" value="削除" class="detail_btn" /></td>
+							<td class="detail_td_2">
+								<!-- 商品種別 --> <span id="tp_nm" class="detail_input" /><input
+								type="hidden" id="type_id" />
+							</td>
+							<td class="detail_td_3">
+								<!-- 商品品名 --> <input type="hidden" id="good_producer_id"
+								class="good_producer_id" /><span id="good_producer_nm"
+								class="detail_input" />
+							</td>
+							<td class="detail_td_4">
+								<!-- 商品メーカー --> <span id="founder" class="detail_input" />
+							</td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</form>
+</body>
+</html>
