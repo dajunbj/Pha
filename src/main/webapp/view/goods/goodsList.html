@@ -23,23 +23,16 @@
 		//----------------連動--------------
 		//商品種別が変更したとき
     $("#sel_typeId").change(function(){
- 
-     Kumu.Ajax.executeTeedaAjax(goods_goodsListPage_ajaxTest, {"sel_typeId":$("#sel_typeId").val()}, Kumu.Ajax.RESPONSE_TYPE_JSON);
-
+        Kumu.Ajax.executeTeedaAjax(goods_goodsListPage_ajaxTest, {"sel_typeId":$("#sel_typeId").val()}, Kumu.Ajax.RESPONSE_TYPE_JSON);
     });
+    //戻り値の設定
     function goods_goodsListPage_ajaxTest(json){
-    alert("1");
-	
-		$('#sel_good_producer_id').append($('<option />').val(1).html('aaa'));
-		$('#sel_good_producer_id').append($('<option />').val(2).html('bbb'));
-		$('#sel_good_producer_id').append($('<option />').val(3).html('ccc'));
-
-alert("2");	
-
-    
+		if (json.length>0) {
+			$.each(json, function(index, content) {
+                $('#sel_good_producer_id').append($('<option />').val(content.value).html(content.label));
+        	});
+		}
     }
-
-
 });
 </script>
 
