@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.h2.util.StringUtils;
 import org.seasar.teeda.extension.annotation.scope.SubapplicationScope;
 import org.seasar.teeda.extension.annotation.takeover.TakeOver;
 import org.seasar.teeda.extension.annotation.takeover.TakeOverType;
@@ -42,7 +43,13 @@ public class GoodsListPage extends PhaBase {
 	public List<Map<String, String>> ajaxTest() {
 		GoodProducer inputParam = new GoodProducer();
 		inputParam.type_id = sel_typeId;
-		return goodProducerDao.selectValueLabel(inputParam);
+
+		// Map<string, string> items = getCityItems(Long.valueOf(prefId));
+		// String str = items.toString();
+		// return StringUtils.strip(str, "{}");
+
+		List<Map<String, String>> ret = goodProducerDao.selectValueLabel(inputParam);
+		return ret;
 	}
 
 	@SubapplicationScope
