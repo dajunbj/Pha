@@ -44,11 +44,7 @@ public class GoodsListPage extends PhaBase {
 
 	public List<Map<String, String>> ajaxTest() {
 		sel_good_producer_idItems = new ArrayList<Map<String, String>>();
-		if (CommonUtil.isNotEmpty(sel_typeId)) {
-			GoodProducer inputParam = new GoodProducer();
-			inputParam.type_id = sel_typeId;
-			sel_good_producer_idItems = goodProducerDao.selectValueLabel(inputParam);
-		}
+		common_sel_init();
 		return sel_good_producer_idItems;
 	}
 
@@ -117,17 +113,18 @@ public class GoodsListPage extends PhaBase {
 		detailItems = dao.getGoodsList(param);
 
 		sel_good_producer_idItems = new ArrayList<Map<String, String>>();
-		/*
-		 * Map<String, String> map = new HashMap<String, String>();
-		 * map.put(ConstUtil.ZERO, ConstUtil.EMPTY);
-		 * sel_good_producer_idItems.add(map);
-		 */
+
+		common_sel_init();
+		return null;
+	}
+
+	private void common_sel_init() {
+
 		if (CommonUtil.isNotEmpty(sel_typeId)) {
 			GoodProducer inputParam = new GoodProducer();
 			inputParam.type_id = sel_typeId;
 			sel_good_producer_idItems = goodProducerDao.selectValueLabel(inputParam);
 		}
-		return null;
 	}
 
 	public Class<GoodsListPage> prerender() {
