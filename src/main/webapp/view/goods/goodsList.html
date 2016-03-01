@@ -27,7 +27,9 @@
     });
     //戻り値の設定
     function goods_goodsListPage_ajaxTest(json){
+		$('#sel_good_producer_id').html("");
 		if (json.length>0) {
+            $('#sel_good_producer_id').append($('<option />').val("0").html(""));
 			$.each(json, function(index, content) {
                 $('#sel_good_producer_id').append($('<option />').val(content.value).html(content.label));
         	});
