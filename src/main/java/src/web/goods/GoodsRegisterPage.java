@@ -1,16 +1,17 @@
 package src.web.goods;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.seasar.teeda.extension.annotation.scope.SubapplicationScope;
 import org.seasar.teeda.extension.annotation.takeover.TakeOver;
 import org.seasar.teeda.extension.annotation.takeover.TakeOverType;
-import org.seasar.teeda.extension.annotation.validator.Required;
 
 import com.sun.xml.internal.fastinfoset.stax.events.Util;
 
+import src.common.CommonUtil;
 import src.dao.GoodProducerDao;
 import src.dao.GoodTypeDao;
 import src.dao.GoodsDao;
@@ -21,7 +22,10 @@ import src.web.common.ErrorConst;
 import src.web.common.PhaUtil;
 
 public class GoodsRegisterPage extends PhaBase {
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private GoodsDao dao;
 	private GoodTypeDao typeDao;
 	private GoodProducerDao goodProducerDao;
@@ -60,6 +64,53 @@ public class GoodsRegisterPage extends PhaBase {
 
 	public String sel_good_producer_id;
 	public List<Map<String, String>> sel_good_producer_idItems;
+
+	private List<Map<String, String>> initSelTypeIdList() {
+		GoodProducer inputParam = new GoodProducer();
+		sel_good_producer_idItems = new ArrayList<Map<String, String>>();
+		inputParam.type_id = sel_typeId;
+		sel_good_producer_idItems.add(CommonUtil.addInitOptions());
+		sel_good_producer_idItems.addAll(goodProducerDao.selectValueLabel(inputParam));
+		return sel_good_producer_idItems;
+	}
+
+	/**
+	 * 初期化処理1
+	 * 
+	 */
+	@TakeOver(type = TakeOverType.INCLUDE, properties = "login_user_id,goodsid")
+	public Class initialize() {
+
+		// 商品種別リストボックス
+		CommonUtil.addOptions(sel_typeIdItems, typeDao.selectValueLabel());
+
+		if (CommonUtil.isEmpty(goods_id)) {
+			// 画面項目をクリアする
+		} else {
+			// 画面項目を検索して、設定する
+			Goods param = new Goods();
+			param.goods_id = goods_id;
+			Goods ret = dao.getGoods(param);
+			// 画面項目の設定
+			goods_id = ret.goods_id;
+			sel_good_producer_id = ret.type_id;
+			goods_nm = ret.goods_nm;
+			unit = ret.unit;
+			capacity = ret.capacity;
+			user_id = ret.user_id;
+
+			// 商品品名の連動
+			GoodProducer inputParam = new GoodProducer();
+			inputParam.type_id = ret.type_id;
+			this.initSelTypeIdList();
+
+			// リストボックスの初期値の設定
+			sel_typeId = ret.type_id;
+			sel_good_producer_id = ret.good_producer_id;
+		}
+
+		return null;
+	}
 
 	public Class doRegist() {
 		System.out.println(login_user_id);
@@ -127,45 +178,8 @@ public class GoodsRegisterPage extends PhaBase {
 		}
 	}
 
-
-
 	public Class doReturn() {
 		return GoodsListPage.class;
-	}
-
-	/**
-	 * 初期化処理1
-	 * 
-	 */
-	@TakeOver(type = TakeOverType.INCLUDE, properties = "login_user_id,goodsid")
-	public Class initialize() {
-
-		// 商品種別リストボックス
-		sel_typeIdItems = typeDao.selectValueLabel();
-
-		if (Util.isEmptyString(goods_id)) {
-			// 画面項目をクリアする
-		} else {
-			// 画面項目を検索して、設定する
-			Goods param = new Goods();
-			param.goods_id = goods_id;
-			Goods retInfo = dao.getGoods(param);
-			GoodProducer inputParam = new GoodProducer();
-
-			// 商品品名の連動
-			inputParam.type_id = retInfo.type_id;
-			sel_good_producer_idItems = goodProducerDao.selectValueLabel(inputParam);
-
-			goods_id = retInfo.goods_id;
-			sel_good_producer_id = retInfo.type_id;
-			goods_nm = retInfo.goods_nm;
-			unit = retInfo.unit;
-			capacity = retInfo.capacity;
-			user_id = retInfo.user_id;
-
-		}
-
-		return null;
 	}
 
 	public Class prerender() {

@@ -2,14 +2,16 @@ package src.web.goods;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.h2.util.StringUtils;
 import org.seasar.teeda.extension.annotation.scope.SubapplicationScope;
 import org.seasar.teeda.extension.annotation.takeover.TakeOver;
 import org.seasar.teeda.extension.annotation.takeover.TakeOverType;
 
+import src.common.CommonUtil;
+import src.common.ConstUtil;
 import src.dao.GoodProducerDao;
 import src.dao.GoodTypeDao;
 import src.dao.GoodsDao;
@@ -41,15 +43,13 @@ public class GoodsListPage extends PhaBase {
 	}
 
 	public List<Map<String, String>> ajaxTest() {
-		GoodProducer inputParam = new GoodProducer();
-		inputParam.type_id = sel_typeId;
-
-		// Map<string, string> items = getCityItems(Long.valueOf(prefId));
-		// String str = items.toString();
-		// return StringUtils.strip(str, "{}");
-
-		List<Map<String, String>> ret = goodProducerDao.selectValueLabel(inputParam);
-		return ret;
+		sel_good_producer_idItems = new ArrayList<Map<String, String>>();
+		if (CommonUtil.isNotEmpty(sel_typeId)) {
+			GoodProducer inputParam = new GoodProducer();
+			inputParam.type_id = sel_typeId;
+			sel_good_producer_idItems = goodProducerDao.selectValueLabel(inputParam);
+		}
+		return sel_good_producer_idItems;
 	}
 
 	@SubapplicationScope
@@ -75,41 +75,58 @@ public class GoodsListPage extends PhaBase {
 	@SubapplicationScope
 	public String selectedId;
 
+	@SubapplicationScope
 	public String sel_good_producer_id;
+	@SubapplicationScope
 	public List<Map<String, String>> sel_good_producer_idItems;
 
 	// 商品種別選択のリストボックス
+	@SubapplicationScope
 	public String sel_typeId;
+	@SubapplicationScope
 	public List<Map<String, String>> sel_typeIdItems;
 
-	public Class<GoodsListPage> initialize() {
+	public Class<?> initialize() {
 
 		// 商品種別リストボックス
 		sel_typeIdItems = typeDao.selectValueLabel();
 
-		detailItems = new ArrayList<Goods>();
-
+		// 明細
 		return selGoodsList();
 	}
 
 	/*
 	 * 情報検索
 	 */
-	public Class<GoodsListPage> doSelect() {
+	public Class<?> doSelect() {
 		return selGoodsList();
 	}
 
 	public String selectedTypeId;
 
-	private Class<GoodsListPage> selGoodsList() {
+	private Class<?> selGoodsList() {
+
 		detailItems = new ArrayList<Goods>();
 
 		Goods param = new Goods();
-		param.goods_nm = sel_good_producer_id;
+		// 種別ID
 		param.type_id = sel_typeId;
+		// 品名ID
+		param.good_producer_id = sel_good_producer_id;
+		// 明細検索
 		detailItems = dao.getGoodsList(param);
 
-		// 商品種別リストボックス.
+		sel_good_producer_idItems = new ArrayList<Map<String, String>>();
+		/*
+		 * Map<String, String> map = new HashMap<String, String>();
+		 * map.put(ConstUtil.ZERO, ConstUtil.EMPTY);
+		 * sel_good_producer_idItems.add(map);
+		 */
+		if (CommonUtil.isNotEmpty(sel_typeId)) {
+			GoodProducer inputParam = new GoodProducer();
+			inputParam.type_id = sel_typeId;
+			sel_good_producer_idItems = goodProducerDao.selectValueLabel(inputParam);
+		}
 		return null;
 	}
 
@@ -121,7 +138,6 @@ public class GoodsListPage extends PhaBase {
 	 * 前画面へ戻る
 	 */
 	public Class<MenuPage> doReturn() {
-
 		return MenuPage.class;
 	}
 
@@ -148,7 +164,7 @@ public class GoodsListPage extends PhaBase {
 	/*
 	 * 利用者を削除する
 	 */
-	public Class<GoodsListPage> doDelete() {
+	public Class<?> doDelete() {
 
 		Goods info = detailItems.get(select_row);
 
