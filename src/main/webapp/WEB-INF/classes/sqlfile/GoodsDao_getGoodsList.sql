@@ -7,8 +7,8 @@ where
 	/*IF param.type_id != null*/
 	and type_id = /*param.type_id*/
 	/*END*/
-	/*IF param.goods_nm != null*/
-	and goods_nm = /*param.goods_nm*/
+	/*IF param.good_producer_id != null*/
+	and good_producer_id = /*param.good_producer_id*/
 	/*END*/
     and del_flg='0'
 /*END*/
