@@ -44,7 +44,7 @@ public class GoodsListPage extends PhaBase {
 
 	public List<Map<String, String>> ajaxTest() {
 		sel_good_producer_idItems = new ArrayList<Map<String, String>>();
-		common_sel_init();
+		initSelTypeId();
 		return sel_good_producer_idItems;
 	}
 
@@ -82,8 +82,13 @@ public class GoodsListPage extends PhaBase {
 	@SubapplicationScope
 	public List<Map<String, String>> sel_typeIdItems;
 
+	/**
+	 * 初期化処理1
+	 * 
+	 */
+	@TakeOver(type = TakeOverType.INCLUDE, properties = "login_user_id")
 	public Class<?> initialize() {
-
+		System.out.println(login_user_id);
 		// 商品種別リストボックス
 		sel_typeIdItems = typeDao.selectValueLabel();
 
@@ -97,8 +102,6 @@ public class GoodsListPage extends PhaBase {
 	public Class<?> doSelect() {
 		return selGoodsList();
 	}
-
-	public String selectedTypeId;
 
 	private Class<?> selGoodsList() {
 
@@ -114,11 +117,12 @@ public class GoodsListPage extends PhaBase {
 
 		sel_good_producer_idItems = new ArrayList<Map<String, String>>();
 
-		common_sel_init();
+		initSelTypeId();
+
 		return null;
 	}
 
-	private void common_sel_init() {
+	private void initSelTypeId() {
 
 		if (CommonUtil.isNotEmpty(sel_typeId)) {
 			GoodProducer inputParam = new GoodProducer();
@@ -141,7 +145,7 @@ public class GoodsListPage extends PhaBase {
 	/*
 	 * 利用者新規画面へ遷移
 	 */
-	@TakeOver(type = TakeOverType.INCLUDE, properties = "login_user_id,goodsid")
+	@TakeOver(type = TakeOverType.INCLUDE, properties = "login_user_id")
 	public Class<GoodsRegisterPage> doRegist() {
 		goodsid = "";
 		return GoodsRegisterPage.class;

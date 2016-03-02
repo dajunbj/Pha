@@ -6,8 +6,37 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <script src="../jquery-2.1.1.min.js"></script>
+<script language="JavaScript" src="../js/ajax.js"></script>
 <link rel="stylesheet" href="../css/base/base.css" />
 <link rel="stylesheet" href="../css/goods/goodsList.css" />
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("input#doUpdate").click(function() {
+			$("#select_row").val($(this).parents("tr").index());
+		});
+		$("input#doDelete").click(function() {
+			$("#select_row").val($(this).parents("tr").index());
+		});
+		
+		//----------------連動--------------
+		//商品種別が変更したとき
+    $("#sel_typeId").change(function(){
+        Kumu.Ajax.executeTeedaAjax(goods_goodsRegisterPage_ajaxTest, {"sel_typeId":$("#sel_typeId").val()}, Kumu.Ajax.RESPONSE_TYPE_JSON);
+    });
+    //戻り値の設定
+    function goods_goodsRegisterPage_ajaxTest(json){
+		$('#sel_good_producer_id').html("");
+		if (json.length>0) {
+            $('#sel_good_producer_id').append($('<option />').val("0").html(""));
+			$.each(json, function(index, content) {
+                $('#sel_good_producer_id').append($('<option />').val(content.value).html(content.label));
+        	});
+		}
+    }
+});
+</script>
+
 <title></title>
 
 </head>

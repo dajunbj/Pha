@@ -12,6 +12,7 @@ import org.seasar.teeda.extension.annotation.takeover.TakeOverType;
 import com.sun.xml.internal.fastinfoset.stax.events.Util;
 
 import src.common.CommonUtil;
+import src.common.ConstUtil;
 import src.dao.GoodProducerDao;
 import src.dao.GoodTypeDao;
 import src.dao.GoodsDao;
@@ -37,6 +38,12 @@ public class GoodsRegisterPage extends PhaBase {
 		// 商品品名リストの初期化
 		goodProducerDao = (GoodProducerDao) getContainer().getComponent(GoodProducerDao.class);
 
+	}
+
+	public List<Map<String, String>> ajaxTest() {
+		sel_good_producer_idItems = new ArrayList<Map<String, String>>();
+		initSelTypeId();
+		return sel_good_producer_idItems;
 	}
 
 	/* レベル表示の設定 */
@@ -65,24 +72,15 @@ public class GoodsRegisterPage extends PhaBase {
 	public String sel_good_producer_id;
 	public List<Map<String, String>> sel_good_producer_idItems;
 
-	private List<Map<String, String>> initSelTypeIdList() {
-		GoodProducer inputParam = new GoodProducer();
-		sel_good_producer_idItems = new ArrayList<Map<String, String>>();
-		inputParam.type_id = sel_typeId;
-		sel_good_producer_idItems.add(CommonUtil.addInitOptions());
-		sel_good_producer_idItems.addAll(goodProducerDao.selectValueLabel(inputParam));
-		return sel_good_producer_idItems;
-	}
-
 	/**
 	 * 初期化処理1
 	 * 
 	 */
-	@TakeOver(type = TakeOverType.INCLUDE, properties = "login_user_id,goodsid")
+	@TakeOver(type = TakeOverType.INCLUDE, properties = "login_user_id")
 	public Class initialize() {
-
+		System.out.println(login_user_id);
 		// 商品種別リストボックス
-		CommonUtil.addOptions(sel_typeIdItems, typeDao.selectValueLabel());
+		sel_typeIdItems = typeDao.selectValueLabel();
 
 		if (CommonUtil.isEmpty(goods_id)) {
 			// 画面項目をクリアする
@@ -102,7 +100,7 @@ public class GoodsRegisterPage extends PhaBase {
 			// 商品品名の連動
 			GoodProducer inputParam = new GoodProducer();
 			inputParam.type_id = ret.type_id;
-			this.initSelTypeIdList();
+			this.initSelTypeId();
 
 			// リストボックスの初期値の設定
 			sel_typeId = ret.type_id;
@@ -112,6 +110,16 @@ public class GoodsRegisterPage extends PhaBase {
 		return null;
 	}
 
+	private void initSelTypeId() {
+
+		if (CommonUtil.isNotEmpty(sel_typeId)) {
+			GoodProducer inputParam = new GoodProducer();
+			inputParam.type_id = sel_typeId;
+			sel_good_producer_idItems = goodProducerDao.selectValueLabel(inputParam);
+		}
+	}
+
+	@TakeOver(type = TakeOverType.INCLUDE, properties = "login_user_id")
 	public Class doRegist() {
 		System.out.println(login_user_id);
 		// システム日付の取得
@@ -129,15 +137,15 @@ public class GoodsRegisterPage extends PhaBase {
 			updInfo.good_producer_id = sel_good_producer_id;
 			updInfo.goods_nm = goods_nm;
 
-			updInfo.unit = "";
-			updInfo.capacity = "";
-			updInfo.user_id = "";
+			updInfo.unit = unit;
+			updInfo.capacity = capacity;
+			updInfo.user_id = login_user_id;
 
 			updInfo.registe_date = sysDate;
 			updInfo.registe_id = login_user_id;
 			updInfo.upd_date = sysDate;
-			updInfo.upd_id = "";
-			updInfo.del_flg = "0";
+			updInfo.upd_id = login_user_id;
+			updInfo.del_flg = ConstUtil.ZERO;
 
 			dao.modifyGoods(updInfo);
 
@@ -159,18 +167,19 @@ public class GoodsRegisterPage extends PhaBase {
 			int all_count = dao.getCounts(null);
 			Goods insertInfo = new Goods();
 			// 新規
-			insertInfo.goods_id = String.valueOf(all_count + 1);
 			insertInfo.type_id = sel_typeId;
+			insertInfo.good_producer_id = sel_good_producer_id;
+			insertInfo.goods_id = String.valueOf(all_count + 1);
 			insertInfo.goods_nm = goods_nm;
-			insertInfo.unit = "";
-			insertInfo.capacity = "";
-			insertInfo.user_id = "";
+			insertInfo.unit = unit;
+			insertInfo.capacity = capacity;
+			insertInfo.user_id = login_user_id;
 
 			insertInfo.registe_date = sysDate;
 			insertInfo.registe_id = login_user_id;
 			insertInfo.upd_date = sysDate;
-			insertInfo.upd_id = "";
-			insertInfo.del_flg = "0";
+			insertInfo.upd_id = login_user_id;
+			insertInfo.del_flg = ConstUtil.ZERO;
 
 			dao.insert(insertInfo);
 

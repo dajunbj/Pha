@@ -23,6 +23,7 @@
 		//----------------連動--------------
 		//商品種別が変更したとき
     $("#sel_typeId").change(function(){
+    alert("a");
         Kumu.Ajax.executeTeedaAjax(goods_goodsListPage_ajaxTest, {"sel_typeId":$("#sel_typeId").val()}, Kumu.Ajax.RESPONSE_TYPE_JSON);
     });
     //戻り値の設定
@@ -93,12 +94,12 @@
 					<tr>
 						<th class="detail_th"><span id="editBtnLabel"
 							class="detail_input" /></th>
-
-						<th class="detail_th"><span id="type_idLabel"
+						<th class="detail_th"><span id="tp_nmLabel"
 							class="detail_input" /></th>
-						<th class="detail_th"><span id="good_producer_idLabel"
+						<th class="detail_th"><span id="good_producer_nmLabel"
 							class="detail_input" /></th>
-
+		<th class="detail_th"><span id="goods_nmLabel"
+							class="detail_input" /></th>
 					</tr>
 					<tbody id="detailItems">
 						<tr id="rowIndex">
@@ -106,14 +107,12 @@
 								<input type="submit" id="doUpdate" value="編集" class="detail_btn" />
 								<input type="submit" id="doDelete" value="削除" class="detail_btn" /></td>
 
-							<td class="detail_td_3"><span id="type_id"
+							<td class="detail_td_3"><input type="hidden" id="goods_id"/><span id="tp_nm"
 								class="detail_input" /></td>
-							<td class="detail_td_4"><span id="good_producer_id"
+							<td class="detail_td_4"><span id="good_producer_nm"
 								class="detail_input" /></td>
 							<td class="detail_td_2"><span id="goods_nm"
 								class="detail_input" /></td>
-							<th class="detail_th"><span id="goods_nmLabel"
-								class="detail_input" /></th>
 
 						</tr>
 					</tbody>

@@ -25,4 +25,7 @@ public class Goods implements Serializable {
 	public String upd_id;
 	public String del_flg;
 
+	public String good_producer_nm;
+	public String tp_nm;
+
 }
