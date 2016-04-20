@@ -11,10 +11,10 @@ T1.type_id = T3.type_id
 where 
     0=0
 	/*IF param.type_id != null*/
-	and type_id = /*param.type_id*/
+	and T1.type_id = /*param.type_id*/
 	/*END*/
 	/*IF param.good_producer_id != null*/
-	and good_producer_id = /*param.good_producer_id*/
+	and T1.good_producer_id = /*param.good_producer_id*/
 	/*END*/
     and T1.del_flg='0'
 /*END*/

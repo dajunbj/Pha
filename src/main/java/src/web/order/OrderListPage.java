@@ -4,13 +4,16 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.poi.hwpf.usermodel.Paragraph;
 import org.seasar.teeda.extension.annotation.scope.SubapplicationScope;
 import org.seasar.teeda.extension.annotation.takeover.TakeOver;
 import org.seasar.teeda.extension.annotation.takeover.TakeOverType;
 import org.seasar.teeda.extension.annotation.validator.RegularExpression;
 
 import src.dao.PhaOrderDao;
+import src.dao.PhaUserDao;
 import src.entity.PhaOrder;
+import src.entity.PhaUser;
 import src.web.PhaBase;
 import src.web.common.PhaUtil;
 import src.web.menu.MenuPage;
@@ -18,9 +21,11 @@ import src.web.menu.MenuPage;
 public class OrderListPage extends PhaBase {
 
 	private PhaOrderDao dao;
+	private PhaUserDao UserDao;
 
 	public OrderListPage() {
 		dao = (PhaOrderDao) getContainer().getComponent(PhaOrderDao.class);
+		UserDao = (PhaUserDao) getContainer().getComponent(PhaUserDao.class);
 
 	}
 
@@ -53,9 +58,23 @@ public class OrderListPage extends PhaBase {
 
 	public String sel_user_nm;
 
+	@SubapplicationScope
+	public boolean manager;
+
 	public Class<OrderListPage> initialize() {
-		
+
 		detailItems = new ArrayList<PhaOrder>();
+
+		PhaUser para = new PhaUser();
+		para.user_id = super.login_user_id;
+		PhaUser ret = UserDao.getPhaUser(para);
+		if ("0".equals(ret.level)) {
+			//0の場合、代理
+			manager = true;
+		} else {
+			//１の場合、顧客です
+			manager = false;
+		}
 
 		return selGoodsList();
 	}
