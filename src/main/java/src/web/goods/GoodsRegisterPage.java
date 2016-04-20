@@ -42,7 +42,7 @@ public class GoodsRegisterPage extends PhaBase {
 
 	public List<Map<String, String>> ajaxTest() {
 		sel_good_producer_idItems = new ArrayList<Map<String, String>>();
-		initSelTypeId();
+		initSelTypeId(sel_typeId);
 		return sel_good_producer_idItems;
 	}
 
@@ -100,7 +100,7 @@ public class GoodsRegisterPage extends PhaBase {
 			// 商品品名の連動
 			GoodProducer inputParam = new GoodProducer();
 			inputParam.type_id = ret.type_id;
-			this.initSelTypeId();
+			this.initSelTypeId(ret.type_id);
 
 			// リストボックスの初期値の設定
 			sel_typeId = ret.type_id;
@@ -110,17 +110,17 @@ public class GoodsRegisterPage extends PhaBase {
 		return null;
 	}
 
-	private void initSelTypeId() {
+	private void initSelTypeId(String id) {
 
-		if (CommonUtil.isNotEmpty(sel_typeId)) {
+		if (CommonUtil.isNotEmpty(id)) {
 			GoodProducer inputParam = new GoodProducer();
-			inputParam.type_id = sel_typeId;
+			inputParam.type_id = id;
 			sel_good_producer_idItems = goodProducerDao.selectValueLabel(inputParam);
 		}
 	}
 
 	@TakeOver(type = TakeOverType.INCLUDE, properties = "login_user_id")
-	public Class doRegist() {
+	public Class<GoodsListPage> doRegist() {
 		System.out.println(login_user_id);
 		// システム日付の取得
 		Timestamp sysDate = PhaUtil.getTimeStamp();

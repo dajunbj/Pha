@@ -52,24 +52,19 @@ public class GoodsListPage extends PhaBase {
 	public List<Goods> detailItems;
 
 	@SubapplicationScope
+	public String selectedId;
+
+	@SubapplicationScope
 	public Integer select_row;
 
 	@SubapplicationScope
-	public String up_user_id;
-
+	public String goods_id;
 	@SubapplicationScope
-	public String goodsid;
+	public String goods_nm;
 	@SubapplicationScope
-	public String goodstype;
+	public String good_producer_nm;
 	@SubapplicationScope
-	public String goodsname;
-	@SubapplicationScope
-	public String tanka;
-	@SubapplicationScope
-	public String tani;
-
-	@SubapplicationScope
-	public String selectedId;
+	public String tp_nm;
 
 	@SubapplicationScope
 	public String sel_good_producer_id;
@@ -109,9 +104,18 @@ public class GoodsListPage extends PhaBase {
 
 		Goods param = new Goods();
 		// 種別ID
-		param.type_id = sel_typeId;
+		if (ConstUtil.ZERO.equals(sel_typeId) ) {
+			param.type_id = null;
+		} else {
+			param.type_id = sel_typeId;
+		}
 		// 品名ID
-		param.good_producer_id = sel_good_producer_id;
+		if (ConstUtil.ZERO.equals(sel_good_producer_id) ) {
+			param.good_producer_id = null;
+		} else {
+			param.good_producer_id = sel_good_producer_id;
+			
+		}
 		// 明細検索
 		detailItems = dao.getGoodsList(param);
 
@@ -147,18 +151,18 @@ public class GoodsListPage extends PhaBase {
 	 */
 	@TakeOver(type = TakeOverType.INCLUDE, properties = "login_user_id")
 	public Class<GoodsRegisterPage> doRegist() {
-		goodsid = "";
+		goods_id = "";
 		return GoodsRegisterPage.class;
 	}
 
 	/*
 	 * 更新を削除する
 	 */
-	@TakeOver(type = TakeOverType.INCLUDE, properties = "login_user_id,goodsid")
+	@TakeOver(type = TakeOverType.INCLUDE, properties = "login_user_id,goods_id")
 	public Class<GoodsRegisterPage> doUpdate() {
 
 		Goods info = detailItems.get(select_row);
-		goodsid = info.goods_id;
+		goods_id = info.goods_id;
 		return GoodsRegisterPage.class;
 	}
 
