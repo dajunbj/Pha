@@ -4,21 +4,31 @@
 	lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<script src="../jquery-2.1.1.min.js"></script>
+<script src="../js/jquery-2.1.1.min.js"></script>
 <!-- 奇数、偶数によって、色を設定する -->
 <script src="../js/com/com_set_row_color.js"></script>
+<script src="../js/calander/Calendar.js"></script>
+
+<!-- カレンダー -->
+<link rel="stylesheet" type="text/css" href="../css/calander/jquery-ui.css" /> 
+
 <link rel="stylesheet" href="../css/base/base.css" />
 <link rel="stylesheet" href="../css/order/orderList.css" />
+<link rel="stylesheet" href="../css/calander/calander.css" />
 <script type="text/javascript">
 	$(document).ready(function() {
+	
 		$("input#doUpdate").click(function() {
 			$("#select_row").val($(this).parents("tr").index());
 		});
 		$("input#doDelete").click(function() {
 			$("#select_row").val($(this).parents("tr").index());
 		});
-	});
+		
 
+	});
+ 
+   
 	function openWindow() {
 		var paramNm = "sel_user_nm=" + $("#sel_user_nm").val()
 
@@ -65,33 +75,39 @@
 			<div class="sel_condition_div">
 				<table>
 					<tr>
-						<td>
+						<td >
 							<div>
 								<span id="messages"></span>
 							</div>
 						</td>
 					</tr>
-					<tr>
-						<!-- 代理名前 -->
-						<td class="sel_obj"><span id="sel_user_nmLabel" /></td>
-						<td><input type="text" id="sel_user_nm" /><input
-							type="button" value="選択" id="doSelUser" onclick="openWindow()" /><input
-							type="hidden" id="sel_user_id" /></td>
-					</tr>
+					<span id="isManager">
+						<tr>
+						
+							<!-- 代理名前 -->
+							<td class="sel_obj"  ><span id="sel_user_nmLabel" /></td>
+							<td  ><input type="text" id="sel_user_nm" /><input
+								type="button" value="選択" id="doSelUser" onclick="openWindow()" /><input
+								type="hidden" id="sel_user_id" /></td>
+						</tr>
+					</span>
 					<tr>
 						<!-- 日付 -->
-						<td class="sel_obj"><span id="sel_dateLabel" /></td>
-						<td><input type="text" id="sel_date" title="sel_dateLabel" /></td>
+						<td class="sel_obj" ><span id="sel_dateLabel" /></td>
+						<td >  
+						<input type="text" id="dateFrom" onclick="fPopCalendar(event,this,this)" style="width:80px;"/>~<input type="text" id="dateTo" onclick="fPopCalendar(event,this,this)" style="width:80px;"/>
+						</td>
+						
 					</tr>
 					<tr>
 						<!-- 注文状態 -->
-						<td class="sel_obj"><span id="sel_stateLabel" /></td>
-						<td><input type="text" id="sel_state" /></td>
+						<td class="sel_obj"  ><span id="sel_stateLabel" /></td>
+						<td  ><input type="text" id="sel_state" /></td>
 					</tr>
 
 
 					<tr>
-						<td class="sel_obj"><input type="button" value="検索"
+						<td class="sel_obj" colspan="3"><input type="button" value="検索"
 							id="doSelect" /><input type="button" value="新規" id="doRegist" />
 							<!-- 明細ボタンのパラメータ --> <input type="hidden" id="selectedId" /></td>
 					</tr>

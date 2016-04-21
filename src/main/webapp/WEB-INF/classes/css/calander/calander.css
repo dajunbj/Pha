@@ -1,0 +1,58 @@
+.cal-box{ 
+width:210px; 
+font-family:"Courier New", Courier, monospace; 
+font-size:14px; 
+} 
+.cal-box span{ 
+display:inline-block; 
+text-align:center; 
+} 
+
+.cal-head{ 
+background-color:#FC3; 
+} 
+.cal-head span{ 
+width:20px; 
+font-weight:bold; 
+color:#69C; 
+text-decoration:underline; 
+cursor:pointer; 
+} 
+.cal-head .dateShow{ 
+width:130px; 
+text-decoration:none; 
+} 
+
+.cal-foot{ 
+background-color:#FC3; 
+} 
+.cal-foot .timeShow{ 
+width:160px; 
+text-align:left; 
+} 
+.cal-foot .timeShow input{ 
+width:24px; 
+height:12px; 
+font-size:12px; 
+} 
+.cal-foot .okBtn{ 
+width:50px; 
+background-color:#CCC; 
+cursor:pointer; 
+} 
+
+.cal-body{ 
+background-color:#9CF; 
+} 
+.cal-body span{ 
+display:inline-block; 
+width:30px; 
+text-align:center; 
+cursor:pointer; 
+} 
+.cal-body .nowDay{ 
+background-color:#F00; 
+} 
+.cal-body .selectDay{ 
+text-decoration:underline; 
+} 
