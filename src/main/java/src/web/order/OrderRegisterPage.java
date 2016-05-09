@@ -1,27 +1,36 @@
 package src.web.order;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.seasar.teeda.extension.annotation.scope.SubapplicationScope;
 import org.seasar.teeda.extension.annotation.takeover.TakeOver;
 import org.seasar.teeda.extension.annotation.takeover.TakeOverType;
-import org.seasar.teeda.extension.annotation.validator.Required;
 
 import com.sun.xml.internal.fastinfoset.stax.events.Util;
 
+import src.common.CommonListUtil;
+import src.common.CommonUtil;
+import src.dao.GoodProducerDao;
+import src.dao.GoodTypeDao;
 import src.dao.GoodsDao;
+import src.dao.PhaOrderDao;
+import src.entity.GoodProducer;
 import src.entity.Goods;
+import src.entity.PhaOrder;
 import src.web.PhaBase;
-import src.web.common.ErrorConst;
 import src.web.common.PhaUtil;
 import src.web.goods.GoodsListPage;
 
 public class OrderRegisterPage extends PhaBase {
 
-	private GoodsDao dao;
+	private PhaOrderDao dao;
 
 	public OrderRegisterPage() {
-		dao = (GoodsDao) getContainer().getComponent(GoodsDao.class);
+		dao = (PhaOrderDao) getContainer().getComponent(PhaOrderDao.class);
+
 	}
 
 	/* レベル表示の設定 */
@@ -31,74 +40,107 @@ public class OrderRegisterPage extends PhaBase {
 	@SubapplicationScope
 	public String up_user_id;
 
-	@SubapplicationScope
-	public String goodsid;
-
-	@Required(target = "doRegist", messageId = "user.required")
-	public String goodstype;
-
-	@Required(target = "doRegist", messageId = "user.required")
-	public String goodsname;
-
-	@Required(target = "doRegist", messageId = "user.required")
-	public String tanka;
-
-	@Required(target = "doRegist", messageId = "user.required")
-	public String tani;
+	public String order_id;
+	public String goods_id;
+	public String amount;
+	public Timestamp order_date;
+	public String user_id;
+	public String manager_id;
+	public String close_kbn;
+	public String state;
 
 	public String regist;
+
+	// 商品種別選択のリストボックス
+	@SubapplicationScope
+	public String sel_typeId;
+	@SubapplicationScope
+	public List<Map<String, String>> sel_typeIdItems;
+
+	@SubapplicationScope
+	public String sel_good_producer_id;
+	@SubapplicationScope
+	public List<Map<String, String>> sel_good_producer_idItems;
+
+	@SubapplicationScope
+	public String sel_good_id;
+	@SubapplicationScope
+	public List<Map<String, String>> sel_good_idItems;
+
+	/**
+	 * 初期化処理1
+	 * 
+	 */
+	@TakeOver(type = TakeOverType.INCLUDE, properties = "login_user_id,goodsid")
+	public Class initialize() {
+
+		// 商品種別リスト初期化
+		sel_typeIdItems = CommonListUtil.initGoodTypeList();
+
+		if (Util.isEmptyString(order_id)) {
+			// 画面項目をクリアする
+		} else {
+			// 画面項目を検索して、設定する
+			PhaOrder param = new PhaOrder();
+			param.order_id = order_id;
+			PhaOrder retInfo = dao.getPhaOrder(param);
+
+			order_id = retInfo.order_id;
+			goods_id = retInfo.goods_id;
+			amount = retInfo.amount;
+			order_date = retInfo.order_date;
+			user_id = retInfo.user_id;
+			manager_id = retInfo.manager_id;
+			close_kbn = retInfo.close_kbn;
+			state = retInfo.state;
+		}
+		return null;
+	}
 
 	public Class doRegist() {
 		System.out.println(login_user_id);
 		// システム日付の取得
 		Timestamp sysDate = PhaUtil.getTimeStamp();
 
-		Goods param = new Goods();
+		PhaOrder param = new PhaOrder();
 
 		// パラメータ作成
-		if (!Util.isEmptyString(goodsid)) {
+		if (!Util.isEmptyString(order_id)) {
 			// 更新
-			Goods updInfo = new Goods();
+			PhaOrder updInfo = new PhaOrder();
 
-			updInfo.goods_id= goodsid;
-			updInfo.type_id = goodstype;
-			updInfo.goods_nm = goodsname;
-			/*
-			 * updInfo.tanka = tanka; updInfo.tani = tani; updInfo.bikou = "";
-			 */
+			updInfo.order_id = order_id;
+			updInfo.goods_id = goods_id;
+			updInfo.amount = amount;
+			updInfo.order_date = sysDate;
+			updInfo.user_id = user_id;
+			updInfo.manager_id = manager_id;
+			updInfo.close_kbn = close_kbn;
+			updInfo.state = state;
+
 			updInfo.registe_date = sysDate;
 			updInfo.registe_id = login_user_id;
 			updInfo.upd_date = sysDate;
 			updInfo.upd_id = "";
 			updInfo.del_flg = "0";
 
-			dao.modifyGoods(updInfo);
+			dao.modifydPhaOrders(updInfo);
 
 			return OrderListPage.class;
 		} else {
 
-			param = new Goods();
+			int all_count = dao.getCounts();
+			PhaOrder insertInfo = new PhaOrder();
 
-			param.goods_nm = goodsname;
-			// 新規
-			int recCount = dao.getCounts(param);
+			insertInfo.order_id = String.valueOf(all_count + 1);
+			insertInfo.goods_id = goods_id;
+			insertInfo.amount = amount;
+			insertInfo.order_date = sysDate;
+			insertInfo.user_id = user_id;
+			insertInfo.manager_id = manager_id;
+			insertInfo.close_kbn = close_kbn;
+			insertInfo.state = state;
 
-			if (recCount > 0) {
-				// ログインIDの存在チェック
-
-				addErrorMessage(ErrorConst.ERR_EXISTS_CHECK_001);
-				return null;
-			}
-			int all_count = dao.getCounts(null);
-			Goods insertInfo = new Goods();
-			// 新規
-			insertInfo.goods_id = String.valueOf(all_count + 1);
-			insertInfo.type_id = goodstype;
-			insertInfo.goods_nm = goodsname;
-			/*
-			 * insertInfo.tanka = tanka; insertInfo.tani = tani;
-			 * insertInfo.bikou = "";
-			 */
 			insertInfo.registe_date = sysDate;
 			insertInfo.registe_id = login_user_id;
 			insertInfo.upd_date = sysDate;
@@ -115,32 +157,22 @@ public class OrderRegisterPage extends PhaBase {
 		return GoodsListPage.class;
 	}
 
-	/**
-	 * 初期化処理1
-	 * 
-	 */
-	@TakeOver(type = TakeOverType.INCLUDE, properties = "login_user_id,goodsid")
-	public Class initialize() {
-		if (Util.isEmptyString(goodsid)) {
-			// 画面項目をクリアする
-		} else {
-			// 画面項目を検索して、設定する
-			Goods param = new Goods();
-			param.goods_id = goodsid;
-			Goods retInfo = dao.getGoods(param);
-
-			goodsid = retInfo.goods_id;
-			goodstype = retInfo.type_id;
-			goodsname = retInfo.goods_nm;
-			/*tanka = retInfo.tanka;
-			tani = retInfo.tani;*/
-		}
-
+	public Class prerender() {
 		return null;
 	}
 
-	public Class prerender() {
-		return null;
+	/*
+	 * 品名リスト作成
+	 */
+	public List<Map<String, String>> ajaxInitProducerList() {
+		return CommonListUtil.initProducerList(sel_typeId);
+	}
+
+	/*
+	 * 品名リスト作成
+	 */
+	public List<Map<String, String>> ajaxInitGoodList() {
+		return CommonListUtil.initGoodList(sel_typeId, sel_good_producer_id);
 	}
 
 }

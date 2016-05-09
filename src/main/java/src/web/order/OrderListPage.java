@@ -65,18 +65,20 @@ public class OrderListPage extends PhaBase {
 
 		detailItems = new ArrayList<PhaOrder>();
 
+		return selGoodsList();
+	}
+
+	private void setUserFlg() {
 		PhaUser para = new PhaUser();
 		para.user_id = super.login_user_id;
 		PhaUser ret = UserDao.getPhaUser(para);
 		if ("0".equals(ret.level)) {
-			//0の場合、代理
+			// 0の場合、代理
 			manager = true;
 		} else {
-			//１の場合、顧客です
+			// １の場合、顧客です
 			manager = false;
 		}
-
-		return selGoodsList();
 	}
 
 	/*
@@ -94,6 +96,8 @@ public class OrderListPage extends PhaBase {
 	}
 
 	private Class<OrderListPage> selGoodsList() {
+
+		setUserFlg();
 		detailItems = new ArrayList<PhaOrder>();
 		/*
 		 * PhaOrder param = new PhaOrder(); param.orderid = sel_goodsName;
