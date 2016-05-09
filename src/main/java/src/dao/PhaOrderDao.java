@@ -11,10 +11,10 @@ public interface PhaOrderDao {
 
 	public List<PhaOrder> selectAll();
 
-	public String selectById_ARGS = "goodsid";
+	public String selectById_ARGS = "order_id";
 
 	@SqlFile("sqlfile/PhaOrderDao_getCounts.sql")
-	public int getCounts(PhaOrder param);
+	public int getCounts();
 
 	@SqlFile("sqlfile/PhaOrderDao_getPhaOrder.sql")
 	public PhaOrder getPhaOrder(PhaOrder param);
