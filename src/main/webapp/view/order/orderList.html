@@ -4,8 +4,7 @@
 	lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<script src="../js/jquery-2.1.1.min.js"></script>
-<!-- 奇数、偶数によって、色を設定する -->
+<script src="../jquery-2.1.1.min.js"></script>
 <script src="../js/com/com_set_row_color.js"></script>
 <script src="../js/calander/Calendar.js"></script>
 
@@ -25,30 +24,16 @@
 			$("#select_row").val($(this).parents("tr").index());
 		});
 		
-
 	});
  
    
+    //子画面の開け
 	function openWindow() {
-		var paramNm = "sel_user_nm=" + $("#sel_user_nm").val()
-
-		/* showModalDialog⇒IEしかサポートしない； */
-		/* 
-		 var opened = window
-		 .open(
-		 "../user/subUserList.html?" + paramNm,
-		 "_blank",
-		 "height=400,width=600,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no");
-		 opened.focus();
-		 self.blur(); */
-
-		/* showModalDialog⇒IE、Firefoxをサポートする； 
-		　　　子画面は最先端に表示される時、別の画面を操作できないです。*/
-		window
-				.showModalDialog(
-						"../user/subUserList.html?" + paramNm,
-						"_blank",
-						"height=800,width=800,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no")
+	var paramNm = "sel_user_nm=" + $("#sel_user_nm").val();
+	
+		window.showModalDialog(
+						"../user/subUserList.html?" + paramNm,"_blank",
+						"height=800,width=800,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no");
 	}
 </script>
 </head>
@@ -81,16 +66,24 @@
 							</div>
 						</td>
 					</tr>
-					<span id="isManager">
+					 <span id="isManager"> 
 						<tr>
 						
 							<!-- 代理名前 -->
 							<td class="sel_obj"  ><span id="sel_user_nmLabel" /></td>
-							<td  ><input type="text" id="sel_user_nm" /><input
+							<td><input type="text" id="sel_user_nm" disabled="false"/><input
 								type="button" value="選択" id="doSelUser" onclick="openWindow()" /><input
 								type="hidden" id="sel_user_id" /></td>
 						</tr>
-					</span>
+						</span>
+					<span id="isNotManager"> 
+						<tr>
+						
+							<!-- 代理名前 -->
+							<td class="sel_obj"  ><span id="sel_user_nmLabel" /></td>
+							<td><input type="text" id="sel_user_nm" disabled="true"/></td>
+						</tr>
+						</span>
 					<tr>
 						<!-- 日付 -->
 						<td class="sel_obj" ><span id="sel_dateLabel" /></td>

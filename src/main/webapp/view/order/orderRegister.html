@@ -5,10 +5,48 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <script src="../jquery-2.1.1.min.js"></script>
+<script language="JavaScript" src="../js/ajax.js"></script>
 <link rel="stylesheet" href="../css/base/base.css" />
 <link rel="stylesheet" href="../css/order/orderList.css" />
 <title></title>
+<script type="text/javascript">
+	$(document).ready(function() {
 
+		//----------------連動--------------
+		//商品種別が変更したとき
+    $("#sel_typeId").change(function(){
+        // 種別IDをパラメータとして、設定する
+        Kumu.Ajax.executeTeedaAjax(order_orderRegisterPage_ajaxInitProducerList, {"sel_typeId":$("#sel_typeId").val()}, Kumu.Ajax.RESPONSE_TYPE_JSON);
+    });
+    //戻り値の設定
+    function order_orderRegisterPage_ajaxInitProducerList(json){
+		$('#sel_good_producer_id').html("");
+		if (json.length>0) {
+            $('#sel_good_producer_id').append($('<option />').val("0").html(""));
+			$.each(json, function(index, content) {
+                $('#sel_good_producer_id').append($('<option />').val(content.value).html(content.label));
+        	});
+		}
+    }
+    
+    $("#sel_good_producer_id").change(function(){
+        // 種別ID、品名をパラメータとして、設定する
+        Kumu.Ajax.executeTeedaAjax(order_orderRegisterPage_ajaxInitGoodList, {"sel_typeId":$("#sel_typeId").val(),"sel_good_producer_id":$("#sel_good_producer_id").val()}, Kumu.Ajax.RESPONSE_TYPE_JSON);
+    });
+    //戻り値の設定
+    function order_orderRegisterPage_ajaxInitGoodList(json){
+		$('#sel_good_id').html("");
+		if (json.length>0) {
+            $('#sel_good_id').append($('<option />').val("0").html(""));
+			$.each(json, function(index, content) {
+                $('#sel_good_id').append($('<option />').val(content.value).html(content.label));
+        	});
+		}
+    }
+    
+    
+});
+</script>
 </head>
 <body>
 	<form id="form">
@@ -32,30 +70,25 @@
 			<div class="sel_condition_div">
 				<table>
 
-					<tr>
-						<td class="td_register_span"><span id="goodsidLabel" /></td>
-						<td class="td_register_input"><input type="text" id="goodsid"
-							class="input_goodsid" disabled="disabled" /></td>
+					<tr><!-- 注文ID -->
+						<td class="td_register_span"><span id="order_idLabel" /></td>
+						<td class="td_register_input"><input type="text" id="order_id" disabled="disabled" /></td>
 					</tr>
-					<tr>
-						<td class="td_register_span"><span id="goodstypeLabel" /></td>
-						<td class="td_register_input"><input type="text"
-							id="goodstype" class="input_goodstype" /></td>
+					<tr><!-- 商品種別 -->
+						<td class="td_register_span"><span id="typeIdLabel" /></td>
+						<td class="td_register_input"><select id="sel_typeId" /></td>
 					</tr>
-					<tr>
-						<td class="td_register_span"><span id="goodsnameLabel" /></td>
-						<td class="td_register_input"><input type="text"
-							id="goodsname" class="input_goodsname" /></td>
+					<tr><!-- 品名 -->
+						<td class="td_register_span"><span id="producerLabel" /></td>
+						<td class="td_register_input"><select id="sel_good_producer_id" /></td>
 					</tr>
-					<tr>
-						<td class="td_register_span"><span id="tankaLabel" /></td>
-						<td class="td_register_input"><input type="text" id="tanka"
-							class="input_tanka" /><span id="taniLabel" /></td>
+					<tr><!-- 商品名 -->
+						<td class="td_register_span"><span id="goodNmLabel" /></td>
+						<td class="td_register_input"><select id="sel_good_id" /></td>
 					</tr>
-					<tr>
+					<tr><!-- 件数 -->
 						<td class="td_register_span"><span id="countLabel" /></td>
-						<td class="td_register_input"><input type="text" id="count"
-							class="input_tani" /></td>
+						<td class="td_register_input"><input type="text" id="count" /></td>
 					</tr>
 				</table>
 			</div>

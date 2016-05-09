@@ -12,11 +12,15 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("input#btnOk").click(function() {
+		
+		
 			var row = $(this).parents("tr").index();
 			$("#rowIndex td span[id='user_nm']").each(function(i) {
 				var obj = $(this);
 				if (row == i) {
 					window.opener.$("#sel_user_nm").val(obj.text());
+					window.opener.$("#isManager").val(true);
+
 				}
 				self.close();
 			});

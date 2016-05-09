@@ -49,18 +49,10 @@ public class SubUserListPage extends PhaBase {
 	// アドレス
 	@SubapplicationScope
 	public String address;
-	// 郵便番号
+	// 郵便番号	
 	@SubapplicationScope
 	public String postal_code;
-	// 実際レート
-	@SubapplicationScope
-	public String exchange_rate;
-	// ユーザーID
-	@SubapplicationScope
-	public String rate;
-	// レベル
-	@SubapplicationScope
-	public String level;
+
 	// 推薦
 	@SubapplicationScope
 	public String recommend_id;
@@ -108,8 +100,8 @@ public class SubUserListPage extends PhaBase {
 	/*
 	 * 明細行を選択
 	 */
-	@TakeOver(type = TakeOverType.INCLUDE, properties = "sel_user_nm")
-	public Class<OrderListPage> jumpOk() {
+	@TakeOver(type = TakeOverType.INCLUDE, properties = "sel_user_nm,isManager")
+	public Class<OrderListPage> btnOk() {
 
 		PhaUser info = phaUserItems.get(select_row);
 		sel_user_nm = info.user_nm;
